@@ -1,0 +1,38 @@
+services:
+    examenpavelphdb:
+      image: pavelphdevops/examen/mysql:latest
+      container_name: mysql-db
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: PERU2025
+        MYSQL_DATABASE: EXAMENFEB25
+      ports:
+        - "4006:3306"
+      volumes:
+        - mysql-data:/var/lib/mysql
+      networks:
+        - app-network
+    app:
+      image: pavelpavelphdevops/examen/devops-app:latest
+      container_name: backend-api
+      restart: always
+      depends_on:
+        - mysql-db
+      environment:
+        MY_DATABASE_DRIVER: "mysql"
+        DB_HOST: examenpavelphdb
+        DB_USER_NAME: paveldb
+        DB_PASSWORD: PERU2025
+        DB_NAME: EXAMENFEB25
+        DB_PORT: 3306
+      ports:
+        - "4000:4000"
+      networks:
+        - app-network
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge
+
