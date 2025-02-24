@@ -1,4 +1,4 @@
-name: Deploy Compose to Server
+name: Deploy Compose a Server
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Copy compose.yaml to server
+      - name: Copy compose.yaml a server
         uses: appleboy/scp-action@v0.1.3
         with:
           host: ${{ secrets.REMOTE_HOST }}
